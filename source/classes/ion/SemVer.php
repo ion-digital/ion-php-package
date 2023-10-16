@@ -13,7 +13,9 @@ namespace ion;
  */
 
 class SemVer implements SemVerInterface {
-        
+    
+    public const ION_PACKAGE_VERSION_FILENAME = 'version.json';
+
     public static function create(
             
         int $major = 0, 

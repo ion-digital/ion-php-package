@@ -1,4 +1,5 @@
 /.phpdoc/
+/.vscode/
 /vendor/
 /doc/
 /documentation/
