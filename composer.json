@@ -1,0 +1,41 @@
+{
+    "name": "ion/versioning",
+    "type": "library",
+    "description": "A small library that functions as the base to all ION packages, intended to handle basic package versioning functionality.",
+    "keywords": [
+        "PHP"
+    ],
+    "homepage": "https://github.com/ion-digital/ion-php-versioning",
+    "license": "LGPL-3.0",
+    "authors": [
+        {
+            "name": "Justus Meyer",
+            "role": "developer",
+            "homepage": "https://justusmeyer.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6"
+    },
+    "require-dev": {
+        "php": ">=8.2",
+        "phpunit/phpunit": "^10.4"
+    },
+    
+    "minimum-stability": "dev", 
+    "autoload": {
+        "files": [
+            "autoload.php"
+        ]
+    },    
+    "autoload-dev": {
+        "psr-4": {
+            "ion\\": "tests/unit/ion/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "ion/dev": true
+        }
+    }
+}

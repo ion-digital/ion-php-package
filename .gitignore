@@ -1,0 +1,7 @@
+/.phpdoc/
+/vendor/
+/doc/
+/documentation/
+/archives/
+/nbproject/private/
+/**/ion-auto-load*.php
