@@ -14,7 +14,7 @@ namespace ion;
 
 class SemVer implements SemVerInterface {
     
-    public const ION_PACKAGE_VERSION_FILENAME = 'version.json';
+    public const PACKAGE_VERSION_FILENAME = 'version.json';
 
     public static function create(
             
@@ -46,7 +46,6 @@ class SemVer implements SemVerInterface {
             }
         } 		
 		
-        
         $pos = strpos($string, '-');
         
         if($pos !== false) {
@@ -167,7 +166,6 @@ class SemVer implements SemVerInterface {
 
             return SemVer::create($major, $minor, $patch, $release, $buildData);
         }
-        
 
         return null;
     }
@@ -182,11 +180,9 @@ class SemVer implements SemVerInterface {
                 return SemVer::parse($json['version']);
             }
         }
-        
 
         return null;		
     }
-
     
     private $major = null;
     private $minor = null;
@@ -393,7 +389,6 @@ class SemVer implements SemVerInterface {
         }           
         
         return false;
-        
     }
     
     /**
@@ -461,7 +456,6 @@ class SemVer implements SemVerInterface {
         }           
         
         return true;         
-        
     }
     
 }

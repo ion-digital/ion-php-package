@@ -20,9 +20,6 @@ spl_autoload_register(function( /* string */ $className) {
 
     $dirs = [
         
-        'source/classes',
-        'source/interfaces',
-        'source/traits',
         'builds/' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
         'builds/' . PHP_MAJOR_VERSION,
     ];
