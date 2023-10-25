@@ -4,16 +4,22 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a374505f765019600ae93af2accb62be",
+    "content-hash": "b9c824405c293be1fc78fb5f012125c4",
     "packages": [],
     "packages-dev": [
         {
             "name": "ion/dev",
             "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ion-digital/ion-php-dev.git",
+                "reference": "fdcaf2086391e31581d0fb097c83f0b13956a922"
+            },
             "dist": {
-                "type": "path",
-                "url": "../ion-dev",
-                "reference": "0a246e772cb75bcd32d8e726def35115d0cbe4e6"
+                "type": "zip",
+                "url": "https://api.github.com/repos/ion-digital/ion-php-dev/zipball/fdcaf2086391e31581d0fb097c83f0b13956a922",
+                "reference": "fdcaf2086391e31581d0fb097c83f0b13956a922",
+                "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "^2.0",
@@ -26,6 +32,7 @@
                 "php": ">=8.2",
                 "phpunit/phpunit": "^10.4"
             },
+            "default-branch": true,
             "type": "composer-plugin",
             "extra": {
                 "class": "ion\\Dev\\Composer\\DevPlugin"
@@ -68,9 +75,11 @@
                 "composer",
                 "development tools"
             ],
-            "transport-options": {
-                "relative": true
-            }
+            "support": {
+                "source": "https://github.com/ion-digital/ion-php-dev/tree/main",
+                "issues": "https://github.com/ion-digital/ion-php-dev/issues"
+            },
+            "time": "2023-10-25T07:14:59+00:00"
         },
         {
             "name": "ion/packaging-dev",
@@ -78,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:ion-digital/ion-php-packaging-dev.git",
-                "reference": "016db341890a8d2a8dbba05a39db64d94396e110"
+                "reference": "698787bc4160a5c038dfbcdee3b11f5ff9899e6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ion-digital/ion-php-packaging-dev/zipball/016db341890a8d2a8dbba05a39db64d94396e110",
-                "reference": "016db341890a8d2a8dbba05a39db64d94396e110",
+                "url": "https://api.github.com/repos/ion-digital/ion-php-packaging-dev/zipball/698787bc4160a5c038dfbcdee3b11f5ff9899e6a",
+                "reference": "698787bc4160a5c038dfbcdee3b11f5ff9899e6a",
                 "shasum": ""
             },
             "require": {
@@ -152,7 +161,7 @@
                 "source": "https://github.com/ion-digital/ion-php-packaging-dev/tree/main",
                 "issues": "https://github.com/ion-digital/ion-php-packaging-dev/issues"
             },
-            "time": "2023-10-24T13:37:44+00:00"
+            "time": "2023-10-25T07:50:54+00:00"
         },
         {
             "name": "ion/php-trans-porter",
