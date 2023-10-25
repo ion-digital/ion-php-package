@@ -2,12 +2,12 @@
 
 namespace ion;
 
+
 /**
  * Description of SemVer
  *
  * @author Justus
  */
-
 interface SemVerInterface {
 
     static function create(

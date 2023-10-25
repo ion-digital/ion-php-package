@@ -14,7 +14,6 @@ namespace ion;
  */
 
 use PHPUnit\Framework\TestCase;
-use \ion\SemVer;
 
 class SemVerTest extends TestCase {
         

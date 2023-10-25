@@ -18,13 +18,13 @@
         "php": ">=5.6"
     },
     "require-dev": {
-        "ion/packaging-tools": "dev-main"
+        "ion/packaging-dev": "dev-main"
     },
     
     "minimum-stability": "dev", 
     "autoload": {
         "files": [
-            "autoload.php"
+            "index.php"
         ]
     },    
     "autoload-dev": {
@@ -42,43 +42,28 @@
 
         {
             "type": "vcs",
-            "url": "https://github.com/ion-digital/ion-php-packaging-tools.git"
-        }        
+            "url": "https://github.com/ion-digital/ion-php-packaging-dev.git"
+        },
+        {
+            "type": "path",
+            "url": "../ion-dev"
+        }
     ],    
     "scripts": {
+
+        "make": [
+
+            "./vendor/bin/phing -f ./build.xml"
+        ],
         "tests": [
 
             "./vendor/bin/phpunit ./tests/unit"
-        ],
-        "builds": [
-
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 5.6 --input ./source/classes/ --output ./builds/5.6/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.0 --input ./source/classes/ --output ./builds/7.0/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.1 --input ./source/classes/ --output ./builds/7.1/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.2 --input ./source/classes/ --output ./builds/7.2/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.3 --input ./source/classes/ --output ./builds/7.3/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.4 --input ./source/classes/ --output ./builds/7/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 8.0 --input ./source/classes/ --output ./builds/8.0/",            
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 8.1 --input ./source/classes/ --output ./builds/8.1/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 8.2 --input ./source/classes/ --output ./builds/8/",
-
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 5.6 --input ./source/interfaces/ --output ./builds/5.6/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.0 --input ./source/interfaces/ --output ./builds/7.0/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.1 --input ./source/interfaces/ --output ./builds/7.1/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.2 --input ./source/interfaces/ --output ./builds/7.2/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.3 --input ./source/interfaces/ --output ./builds/7.3/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 7.4 --input ./source/interfaces/ --output ./builds/7/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 8.0 --input ./source/interfaces/ --output ./builds/8.0/",            
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 8.1 --input ./source/interfaces/ --output ./builds/8.1/",
-            "./vendor/bin/php-trans-porter --source-version 8.2 --target-version 8.2 --input ./source/interfaces/ --output ./builds/8/"            
-        ],
-        "release": [
-
-            "git checkout -b release/main",
-            "git add .",
-            "git commit -m \"Release\"",
-            "composer run-script builds",
-            "composer run-script tests"
         ]
+    },
+    "config": {
+        "allow-plugins": {
+            "ion/packaging-dev": true,
+            "ion/dev": true
+        }
     }
 }

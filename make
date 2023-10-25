@@ -2,7 +2,7 @@
 
 SCRIPT=$1
 if [ $SCRIPT = "" ]; then
-   SCRIPT="builds"
+   SCRIPT="package"
 fi
 
- composer run-script $SCRIPT
+ composer run-script make $SCRIPT
