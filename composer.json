@@ -45,8 +45,8 @@
             "url": "https://github.com/ion-digital/ion-php-packaging-dev.git"
         },
         {
-            "type": "path",
-            "url": "../ion-dev"
+            "type": "vcs",
+            "url": "https://github.com/ion-digital/ion-php-dev.git"
         }
     ],    
     "scripts": {
