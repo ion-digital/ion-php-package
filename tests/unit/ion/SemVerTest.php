@@ -343,15 +343,7 @@ class SemVerTest extends TestCase {
         $this->assertEquals(static::MINOR_VERSION, $semVer->getMinor());
         $this->assertEquals(0, $semVer->getPatch());
         $this->assertNull($semVer->getRelease());
-        $this->assertEquals(0, count($semVer->getBuildData()));		
-
-        $semVer = SemVer::parse(static::PHP_VERSION_WITH_OPERATORS);          
-        $this->assertNotNull($semVer);
-        $this->assertEquals(static::MAJOR_VERSION, $semVer->getMajor());
-        $this->assertEquals(static::MINOR_VERSION, $semVer->getMinor());
-        $this->assertEquals(0, $semVer->getPatch());
-        $this->assertNull($semVer->getRelease());
-        $this->assertEquals(0, count($semVer->getBuildData()));	        
+        $this->assertEquals(0, count($semVer->getBuildData()));		    
 
         $semVer = SemVer::parse(static::VERSION_NONSENSE);   
         $this->assertEquals(true, $semVer === null);
@@ -370,6 +362,5 @@ class SemVerTest extends TestCase {
 v2.0.4-p1
          */        
         
-    }
-    
+    }   
 }

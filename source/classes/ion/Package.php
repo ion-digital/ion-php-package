@@ -33,8 +33,8 @@ final class Package implements PackageInterface {
      * @param callable $loadingHandler The callback that will handle the loading of class files - defaults to requiring Composer's 'vendor/autoload.php' script.
      * @param string $projectRootFile An optional parameter to override the project root script - defaults to the calling script.
      * @param SemVerInterface $version The current package version - will be loaded from the file, if __NULL__ and if a version definition file exists, or a Composer version tag is available (in _composer.json_).
-     * @param int $requiredPhpMajorVersion The minimum required PHP major version. If __NULL__, it will be determined via the "require" section in composer.json, or disregarded if missing.
-     * @param int $requiredPhpMinorVersion The minimum required PHP minor version. If __NULL__, it will be determined via the "require" section in composer.json, or disregarded if __$requiredPhpMajorVersion__ is missing; otherwise it will be set to 0.
+     * @param int $requiredPhpMajorVersion The minimum required PHP major version. If __NULL__, it will be disregarded.
+     * @param int $requiredPhpMinorVersion The minimum required PHP minor version. If __NULL__, it will be disregarded if __$requiredPhpMajorVersion__ is __NULL__; otherwise it will be set to 0.
      * @return PackageInterface Returns the new package instance.
      */    
     
@@ -230,8 +230,7 @@ final class Package implements PackageInterface {
             throw new PackageException("'{$this->projectRootFile}' for package '{$vendor}/{$project}' cannot be accessed directly.");
         }      
 
-        $this->projectRootDirectory = pathinfo($this->projectRootFile, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
-        
+        $this->projectRootDirectory = pathinfo($this->projectRootFile, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;        
         
         $requiredPhpVersion = null;
         
@@ -242,14 +241,6 @@ final class Package implements PackageInterface {
                 $requiredPhpMajorVersion, 
                 $requiredPhpMinorVersion ?? 0
             );
-        }
-        
-        if($requiredPhpVersion === null) {
-
-            $requiredPhpVersion = $this->loadPhpVersion();
-        }
-
-        if($requiredPhpVersion !== null) {
 
             $phpVersion = SemVer::create(PHP_MAJOR_VERSION, PHP_MINOR_VERSION);
 
@@ -270,34 +261,7 @@ final class Package implements PackageInterface {
 
         $loadingHandler($this);
     }
-    
-    protected function isDependency(): ?bool { // NULL = Possibly, not sure; TRUE = Definitely yes; FALSE = Definitely no.
-        
-        //.gitignore? .git? composer.json? /vendor ? version.json? .hg? .hgignore?
-        
-        if(strstr($this->projectRoot, DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR)) {
-            
-            return true;
-        }
-        
-        return null;
-    }        
-    
-    protected function hasRepository(): bool {
-        
-        $repos = [ '.git', '.hg' ];
-        
-        foreach($repos as $repo) {
-            
-            if(is_dir($this->projectRoot . DIRECTORY_SEPARATOR . $repo)) {
-                
-                return true;
-            }
-        }
-        
-        return false;
-    }
-  
+
     /**
      * 
      * Destroy an instance.
@@ -327,11 +291,6 @@ final class Package implements PackageInterface {
     }
       
     protected function loadVersion(): ?SemVerInterface {
-        
-        // if(defined(static::ION_PACKAGE_IGNORE_VERSION) && (constant(static::ION_PACKAGE_IGNORE_VERSION) === true)) {
-            
-        //     return null;
-        // }
 
         $path = $this->getProjectRootDirectory() . static::VERSION_FILENAME;
         
@@ -362,32 +321,6 @@ final class Package implements PackageInterface {
         }        
         
         return null;
-    }
-
-    private function loadPhpVersion(): ?SemVerInterface {
-
-        $path = $this->getProjectRootDirectory() . static::COMPOSER_FILENAME;
-
-        if(file_exists($path)) {   
-
-            $data = file_get_contents($path);
-
-            if($data !== false) {
-
-                $json = json_decode($data, true);                 
-
-                if($json !== null) {
-        
-                    if(isset($json['require']) && isset($json['require']['php'])) {  
-
-                        return SemVer::parse($json['require']['php']);
-                    }
-                }
-
-            }
-        }        
-        
-        return null;        
     }
 
     /**

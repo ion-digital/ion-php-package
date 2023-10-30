@@ -127,7 +127,7 @@ class SemVer implements SemVerInterface {
 
         return null;
     }
-	
+
     public static function parsePackageJson(string $data): ?SemVerInterface {
 		
         $major = 0;
