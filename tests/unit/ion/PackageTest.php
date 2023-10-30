@@ -107,7 +107,7 @@ class PackageTest extends TestCase {
         $package1 = self::createPackage($this, self::TEST_PACKAGE_PROJECT_1, true, false);
         $package2 = self::createPackage($this, self::TEST_PACKAGE_PROJECT_2, false, false);        
 
-        $this->assertEquals(2, count(Package::getInstances()));
+        $this->assertEquals(3, count(Package::getInstances()));
         
         $this->assertEquals(true, Package::hasInstance(self::TEST_PACKAGE_VENDOR, self::TEST_PACKAGE_PROJECT_1));
         $this->assertEquals(true, Package::hasInstance(self::TEST_PACKAGE_VENDOR, self::TEST_PACKAGE_PROJECT_2));

@@ -44,6 +44,10 @@ class SemVerTest extends TestCase {
     const VCS_VERSION_6 = 'v' . self::VERSION_6;	
     
     const VERSION_NONSENSE = 'asbjewhgrj#@$@#$.wr32.f';
+
+    const PHP_VERSION = self::MAJOR_VERSION . '.' . self::MINOR_VERSION;
+
+    const PHP_VERSION_WITH_OPERATORS = ">=" . self::MAJOR_VERSION . '.' . self::MINOR_VERSION;
 	
     
     private function createInstance($release = true, $buildData = true) {
@@ -333,6 +337,22 @@ class SemVerTest extends TestCase {
         $this->assertEquals(null, $semVer->getRelease());
         $this->assertEquals(0, count($semVer->getBuildData()));			
 		
+        $semVer = SemVer::parse(static::PHP_VERSION);          
+        $this->assertNotNull($semVer);
+        $this->assertEquals(static::MAJOR_VERSION, $semVer->getMajor());
+        $this->assertEquals(static::MINOR_VERSION, $semVer->getMinor());
+        $this->assertEquals(0, $semVer->getPatch());
+        $this->assertNull($semVer->getRelease());
+        $this->assertEquals(0, count($semVer->getBuildData()));		
+
+        $semVer = SemVer::parse(static::PHP_VERSION_WITH_OPERATORS);          
+        $this->assertNotNull($semVer);
+        $this->assertEquals(static::MAJOR_VERSION, $semVer->getMajor());
+        $this->assertEquals(static::MINOR_VERSION, $semVer->getMinor());
+        $this->assertEquals(0, $semVer->getPatch());
+        $this->assertNull($semVer->getRelease());
+        $this->assertEquals(0, count($semVer->getBuildData()));	        
+
         $semVer = SemVer::parse(static::VERSION_NONSENSE);   
         $this->assertEquals(true, $semVer === null);
        

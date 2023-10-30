@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b9c824405c293be1fc78fb5f012125c4",
+    "content-hash": "53139d4ef45474e460b02f64f82a53c2",
     "packages": [],
     "packages-dev": [
         {
@@ -1147,12 +1147,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "9edfd05ddeb3589b1cb26c09d463729e33b98525"
+                "reference": "1ac044c37a76e3cb72e23e4905fa79c01bcef687"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9edfd05ddeb3589b1cb26c09d463729e33b98525",
-                "reference": "9edfd05ddeb3589b1cb26c09d463729e33b98525",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/1ac044c37a76e3cb72e23e4905fa79c01bcef687",
+                "reference": "1ac044c37a76e3cb72e23e4905fa79c01bcef687",
                 "shasum": ""
             },
             "require": {
@@ -1240,7 +1240,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-23T09:37:28+00:00"
+            "time": "2023-10-26T07:26:42+00:00"
         },
         {
             "name": "psr/container",
@@ -3030,7 +3030,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": ">=8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.6.0"

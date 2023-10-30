@@ -183,7 +183,7 @@ final class Package implements PackageInterface {
 
         $trace = array_values($trace);
 
-        return realpath($trace[array_search(__FUNCTION__, array_column($trace, 'function'))]['file']) . DIRECTORY_SEPARATOR;
+        return realpath($trace[array_search(__FUNCTION__, array_column($trace, 'function'))]['file']);
     }
 
     private $vendor = null;
@@ -230,10 +230,37 @@ final class Package implements PackageInterface {
         if ($requireOnly && $this->projectRootFile == $_SERVER[self::SCRIPT_FILENAME_KEY]) {
 
             throw new PackageException("'{$this->projectRootFile}' for package '{$vendor}/{$project}' cannot be accessed directly.");
-        }
+        }      
 
         $this->projectRootDirectory = pathinfo($this->projectRootFile, PATHINFO_DIRNAME) . DIRECTORY_SEPARATOR;
         
+        
+        $requiredPhpVersion = null;
+        
+        if($requiredPhpMajorVersion !== null) {
+
+            $requiredPhpVersion = new SemVer(
+
+                $requiredPhpMajorVersion, 
+                $requiredPhpMinorVersion ?? 0
+            );
+        }
+        
+        if($requiredPhpVersion === null) {
+
+            $requiredPhpVersion = $this->loadPhpVersion();
+        }
+
+        if($requiredPhpVersion !== null) {
+
+            $phpVersion = SemVer::create(PHP_MAJOR_VERSION, PHP_MINOR_VERSION);
+
+            if($phpVersion->isLowerThan($requiredPhpVersion)) {
+
+                throw new PackageException("Package '{$vendor}/{$project}' requires at least PHP version {$requiredPhpVersion->getMajor()}.{$requiredPhpVersion->getMinor()}.");
+            }
+        }
+
         $this->version = $version;
         
         if($this->version === null) {
@@ -337,6 +364,32 @@ final class Package implements PackageInterface {
         }        
         
         return null;
+    }
+
+    private function loadPhpVersion(): ?SemVerInterface {
+
+        $path = $this->getProjectRootDirectory() . static::COMPOSER_FILENAME;
+
+        if(file_exists($path)) {   
+
+            $data = file_get_contents($path);
+
+            if($data !== false) {
+
+                $json = json_decode($data, true);                 
+
+                if($json !== null) {
+        
+                    if(isset($json['require']) && isset($json['require']['php'])) {  
+
+                        return SemVer::parse($json['require']['php']);
+                    }
+                }
+
+            }
+        }        
+        
+        return null;        
     }
 
     /**
