@@ -57,9 +57,7 @@ final class Package implements PackageInterface {
             $project, 
             $requireOnly,
 
-            $loadingHandler ?? function(PackageInterface $package): void {
-
-                echo $package->getProjectRootDirectory() . Package::COMPOSER_AUTOLOAD_PATH . "\n";
+            $loadingHandler ?? function(PackageInterface $package) use ($vendor, $project): void {
 
                 $f = $package->getProjectRootDirectory() . Package::COMPOSER_AUTOLOAD_PATH;
 

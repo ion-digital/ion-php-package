@@ -295,11 +295,20 @@ class SemVer implements SemVerInterface {
         $string = join('.', [$this->getMajor(), $this->getMinor(), $this->getPatch()]);
         
         if($this->getRelease() !== null) {
+
             $string .= '-' . $this->getRelease();
         }
         
         if(count($this->getBuildData()) > 0) {
-            $string .= '+' . join('.', $this->getBuildData());
+
+            $tmp = join('.', $this->getBuildData());
+
+            if(empty($tmp)) {
+
+                return $string;
+            }
+
+            $string .= "+{$tmp}"; 
         }          
         
         return $string;
