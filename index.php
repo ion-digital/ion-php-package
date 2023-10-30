@@ -19,35 +19,41 @@
 //     require_once($autoLoadPath);
 // }
 
-spl_autoload_register(function(string $className) {
+if(!class_exists("\ion\Package")) {
 
-    $dirs = [
-        
-        'source/classes/',
-        'source/traits/',
-        'source/interfaces/',
-        'builds/' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
-        'builds/' . PHP_MAJOR_VERSION,
-    ];
+    spl_autoload_register(function(string $className) {
 
-    foreach($dirs as $dir) {
-    
-        $classPath = __DIR__ 
-        . DIRECTORY_SEPARATOR 
-        . str_replace("/", DIRECTORY_SEPARATOR, $dir) 
-        . DIRECTORY_SEPARATOR 
-        . str_replace("\\", DIRECTORY_SEPARATOR, $className) 
-        . '.php';
-
-        $classPath = realPath($classPath);
-
-        if (file_exists($classPath)) {
+        $dirs = [
             
-            require_once($classPath);
-            break;
-        }
-    }
-    
-}, true, true);
+            'source/classes/',
+            'source/traits/',
+            'source/interfaces/',
+            'builds/' . PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION,
+            'builds/' . PHP_MAJOR_VERSION,
+        ];
 
-\ion\Package::create("ion", "packaging");
+        foreach($dirs as $dir) {
+        
+            $classPath = __DIR__ 
+            . DIRECTORY_SEPARATOR 
+            . str_replace("/", DIRECTORY_SEPARATOR, $dir) 
+            . DIRECTORY_SEPARATOR 
+            . str_replace("\\", DIRECTORY_SEPARATOR, $className) 
+            . '.php';
+
+            $classPath = realPath($classPath);
+
+            if (file_exists($classPath)) {
+                
+                require_once($classPath);
+                break;
+            }
+        }
+        
+    }, true, true);
+}
+
+\ion\Package::create("ion", "packaging", true, function() {
+
+    return;
+});
