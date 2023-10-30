@@ -30,10 +30,7 @@
     "autoload-dev": {
         "psr-4": {
             "ion\\": [ 
-
-                "source/classes/ion/", 
-                "source/interfaces/ion/", 
-                "source/traits/ion/",             
+         
                 "tests/unit/ion/"
             ]
         }
