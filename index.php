@@ -87,7 +87,7 @@
 
         foreach($dirs as $dir) {
 
-            foreach(array_keys(self::DEFINITIONS) as $class) {                
+            foreach(array_keys(self::DEFINITIONS) as $class) {
 
                 foreach(self::DEFINITIONS[$class] as $interface) {
 
