@@ -19,28 +19,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
-    # - name: Retrieve the repository name
-    #   run: |
-    #     echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV      
-    
-    # - name: Retrieve the branch name
-    #   uses: nelonoel/branch-name@v1.0.1
-
-    - name: Debug
-      run: |
-        echo "'${{ vars.SATIS_REPO_OWNER }} ${{ vars.SATIS_REPO_NAME }} ${{ vars.SATIS_WORKFLOW }} ${{ vars.SATIS_BUILD_BRANCH }}'";
-
     - name: Trigger Satis rebuild   
       uses: actions/github-script@v6        
       with:
         github-token: ${{ secrets.TOKEN }}
         script: |
           await github.rest.actions.createWorkflowDispatch({
-            owner: '${{ vars.SATIS_REPO_OWNER }}',
-            repo: '${{ vars.SATIS_REPO_NAME }}',
-            workflow_id: '${{ vars.SATIS_WORKFLOW }}',
-            ref: '${{ vars.SATIS_BUILD_BRANCH }}'
+            owner: '${SATIS_REPO_OWNER}',
+            repo: '${SATIS_REPO_NAME}',
+            workflow_id: '${SATIS_WORKFLOW}',
+            ref: '${SATIS_BUILD_BRANCH}'
           })
 
 
