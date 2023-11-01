@@ -14,12 +14,12 @@ jobs:
 
     steps:
 
-    - name: Retrieve the repository name
-      run: |
-        echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV      
+    # - name: Retrieve the repository name
+    #   run: |
+    #     echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV      
     
-    - name: Retrieve the branch name
-      uses: nelonoel/branch-name@v1.0.1
+    # - name: Retrieve the branch name
+    #   uses: nelonoel/branch-name@v1.0.1
 
     - name: Trigger Satis rebuild   
       uses: actions/github-script@v6        
@@ -28,9 +28,9 @@ jobs:
         script: |
           await github.rest.actions.createWorkflowDispatch({
             owner: '${GITHUB_REPOSITORY_OWNER}',
-            repo: '${REPO_NAME}',
-            workflow_id: 'cd.yml',
-            ref: '${BRANCH_NAME}'
+            repo: '${{ vars.SATIS_REPO_NAME }}',
+            workflow_id: 'deploy-satis.yml',
+            ref: 'main'
           })
 
 
