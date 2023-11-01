@@ -8,26 +8,29 @@ on:
 
 jobs:
 
-  tests:
-
-    uses: .github/workflows/ci.yml
-
   satis:
 
     runs-on: ubuntu-latest
 
     steps:
+
+    - name: Retrieve the repository name
+      run: |
+        echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV      
       
     - name: satis    
-      uses: actions/github-script@v6
+      uses: 
+        actions/github-script@v6
+        nelonoel/branch-name@v1.0.1
+
       with:
         github-token: ${{ secrets.TOKEN }}
         script: |
           await github.rest.actions.createWorkflowDispatch({
-            owner: 'ion-digital',
-            repo: 'ion-php-packages',
-            workflow_id: 'release.yml',
-            ref: 'main'
+            owner: '${GITHUB_REPOSITORY_OWNER}',
+            repo: '${REPO_NAME}',
+            workflow_id: 'cd.yml',
+            ref: '${BRANCH_NAME}'
           })
 
 
