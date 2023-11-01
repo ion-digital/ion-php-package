@@ -17,12 +17,12 @@ jobs:
     - name: Retrieve the repository name
       run: |
         echo "REPO_NAME=${GITHUB_REPOSITORY#$GITHUB_REPOSITORY_OWNER/}" >> $GITHUB_ENV      
-      
-    - name: satis    
-      uses: 
-        actions/github-script@v6
-        nelonoel/branch-name@v1.0.1
+    
+    - name: Retrieve the branch name
+      uses: nelonoel/branch-name@v1.0.1
 
+    - name: Trigger Satis rebuild   
+      uses: actions/github-script@v6        
       with:
         github-token: ${{ secrets.TOKEN }}
         script: |

@@ -1,4 +1,4 @@
-# Versioning
+# Packaging
 
 [![License: LGPL v3](https://img.shields.io/badge/License-LGPL%20v3-blue.svg)](https://www.gnu.org/licenses/lgpl-3.0)
 
@@ -16,8 +16,8 @@ To use the current stable version, add the following to download it straight fro
 
 ```
 "require": {
-    "php": ">=5.6",
-    "ion/versioning": "^1.0.0",
+    "php": ">=7.4",
+    "ion/packaging": "^1.0.0",
 }
 ```
 
@@ -25,13 +25,13 @@ To use the bleeding edge (development) version, add the following:
 
 ```
 "require": {
-    "php": ">=8.2",
-    "ion/versioning": "dev-default",	
+    "php": ">=7.4",
+    "ion/packaging": "dev-default",	
 },
 "repositories": {
     {
       "type": "vcs",
-      "url": "https://github.com/ion-digital/ion-php-versioning.git"
+      "url": "https://github.com/ion-digital/ion-php-packaging.git"
     }
 }
 ```
@@ -51,7 +51,7 @@ Then run the following in the root directory of your project:
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://bitbucket.org/justusmeyer/auto-loader/downloads/?tab=tags "bitbucket.org"). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/ion-digital/ion-php-packaging/tags "GitHub"). 
 
 ## Authors
 
