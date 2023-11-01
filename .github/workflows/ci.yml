@@ -25,6 +25,14 @@ jobs:
         version: 2.x                    
         command: config --no-interaction --auth github-oauth.github.com ${{ secrets.TOKEN }}
 
+    - name: install
+      uses: php-actions/composer@v6
+      with:
+        php_version: "8.2"
+        php_extensions: zip xsl
+        version: 2.x                    
+        command: install     
+
     - name: tests
       uses: php-actions/phpunit@v3
       with:
