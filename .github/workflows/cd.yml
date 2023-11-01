@@ -27,9 +27,10 @@ jobs:
           await github.rest.actions.createWorkflowDispatch({
             owner: '${SATIS_REPO_OWNER}',
             repo: '${SATIS_REPO_NAME}',
-            workflow_id: '${SATIS_WORKFLOW}',
+            workflow_id: '${SATIS_BUILD_WORKFLOW}',
             ref: '${SATIS_BUILD_BRANCH}'
           })
+          console.log(`Debug: ${SATIS_REPO_OWNER} ${SATIS_REPO_NAME} ${SATIS_BUILD_WORKFLOW} ${SATIS_BUILD_BRANCH}`)
 
 
 
