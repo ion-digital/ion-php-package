@@ -47,7 +47,4 @@ jobs:
         php_version: "8.2"
         php_extensions: zip xsl xdebug mbstring
         bootstrap: vendor/autoload.php
-        args: --coverage-text tests/unit
-
-
-
+        args: tests/unit
