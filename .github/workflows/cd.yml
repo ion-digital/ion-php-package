@@ -23,21 +23,18 @@ jobs:
       with:
         github-token: ${{ secrets.TOKEN }}
         script: |
-          const SATIS_REPO_OWNER = `${SATIS_REPO_OWNER}`;
-          const SATIS_REPO_NAME = `${SATIS_REPO_NAME}`;
-          const SATIS_BUILD_WORKFLOW = `${SATIS_BUILD_WORKFLOW}`;
-          const SATIS_BUILD_BRANCH = `${SATIS_BUILD_BRANCH}`;
+          const { SATIS_REPO_OWNER, SATIS_REPO_NAME, SATIS_BUILD_WORKFLOW, SATIS_BUILD_BRANCH } = process.env
         
-          console.log(SATIS_REPO_OWNER)
-          console.log(SATIS_REPO_NAME)
-          console.log(SATIS_BUILD_WORKFLOW)
-          console.log(SATIS_BUILD_BRANCH)
+          console.log(`${SATIS_REPO_OWNER}`)
+          console.log(`${SATIS_REPO_NAME}`)
+          console.log(`${SATIS_BUILD_WORKFLOW}`)
+          console.log(`${SATIS_BUILD_BRANCH}`)
 
           await github.rest.actions.createWorkflowDispatch({
-            owner: SATIS_REPO_OWNER,
-            repo: SATIS_REPO_NAME,
-            workflow_id: SATIS_BUILD_WORKFLOW,
-            ref: SATIS_BUILD_BRANCH
+            owner: `${SATIS_REPO_OWNER}`,
+            repo: `${SATIS_REPO_NAME}`,
+            workflow_id: `${SATIS_BUILD_WORKFLOW}`,
+            ref: `${SATIS_BUILD_BRANCH}`
           })
 
           
