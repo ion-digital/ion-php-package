@@ -2,7 +2,7 @@ name: Trigger a Satis rebuild
 
 on: 
   push:
-    branches: ["release/main"]
+    branches: ["main", "release/main"]
 
   workflow_dispatch:  
 
