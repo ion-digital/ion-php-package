@@ -2,7 +2,9 @@
 
 namespace ion;
 
+use \ion\SettingsInterface;
 use \ion\SemVerInterface;
+use \ion\ConfigurationInterface;
 
 
 /**
@@ -34,6 +36,7 @@ interface PackageInterface {
         bool $requireOnly = true,
         callable $loadingHandler = null,
         string $projectRootFile = null,
+        SettingsInterface $settings = null,
         SemVerInterface $version = null,
         int $requiredPhpMajorVersion = null,
         int $requiredPhpMinorVersion = null
@@ -153,5 +156,15 @@ interface PackageInterface {
      */
 
     function getProjectRootFile(): string;
+
+    /**
+     *
+     * Get the the package configuration.
+     *
+     * @return ConfigurationInterface Returns all configuration settings.
+     *
+     */
+
+    function getConfiguration(): ConfigurationInterface;
 
 }

@@ -20,6 +20,8 @@
     
     private const DEFINITIONS = [
 
+        "ion\\Settings" => [ "ion\\SettingsInterface" ],
+        "ion\\SettingsException" => [ "ion\\SettingsExceptionInterface" ],        
         "ion\\Package" => [ "ion\\PackageInterface" ],
         "ion\\PackageException" => [ "ion\\PackageExceptionInterface" ],
         "ion\\SemVer" => [ "ion\\SemVerInterface" ]

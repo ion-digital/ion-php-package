@@ -89,8 +89,9 @@ class PackageTest extends TestCase {
             function(PackageInterface $package): void {
 
                 return;
-            }, 
+            },             
             static::createRootDirectory($tests, $createFileName), 
+            null,
             $version
         );                     
 

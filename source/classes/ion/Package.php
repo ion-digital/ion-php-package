@@ -20,6 +20,9 @@ final class Package implements PackageInterface {
 
     public const COMPOSER_FILENAME = 'composer.json';
     public const VERSION_FILENAME = 'version.json';    
+    public const CONFIGURATION_FILENAME = "settings.json";
+
+    public const IGNORE_PACKAGE_CONFIGURATION_DEFINITION = 'IGNORE_PACKAGE_CONFIGURATION';
 
     private static $instances = [];
 
@@ -43,8 +46,9 @@ final class Package implements PackageInterface {
             string $vendor,
             string $project,
             bool $requireOnly = true,
-            callable $loadingHandler = null,
+            callable $loadingHandler = null,            
             string $projectRootFile = null,
+            SettingsInterface $settings = null,
             SemVerInterface $version = null,
             int $requiredPhpMajorVersion = null,
             int $requiredPhpMinorVersion = null
@@ -59,18 +63,20 @@ final class Package implements PackageInterface {
 
             $loadingHandler ?? function(PackageInterface $package) use ($vendor, $project): void {
 
-                $f = $package->getProjectRootDirectory() . Package::COMPOSER_AUTOLOAD_PATH;
+                $f = $package->getProjectRootDirectory() . self::COMPOSER_AUTOLOAD_PATH;
+                $rf = realpath($f);
 
-                if(empty(realpath($f))) {
+                if(empty($rf)) {
 
                     throw new PackageException("The composer autoloader script ('{$f}') for package '{$vendor}/{$project}' does not exist.");
                 }
 
-                require_once(realpath($f));
-            },      
-            
+                require_once($rf);
+            },            
+
             $projectRootFile ?? static::getCallingFile(),
 
+            $settings,
             $version,
             $requiredPhpMajorVersion,
             $requiredPhpMinorVersion
@@ -193,6 +199,7 @@ final class Package implements PackageInterface {
     private $projectRootDirectory = null;
     private $requiredPhpMajorVersion = null;
     private $requiredPhpMinorVersion = null;
+    private $settings = null;
 
     protected function __construct(
         
@@ -201,9 +208,10 @@ final class Package implements PackageInterface {
             bool $requireOnly,            
             callable $loadingHandler, 
             string $projectRootFile,
+            SettingsInterface $settings = null,
             SemVerInterface $version = null,
             int $requiredPhpMajorVersion = null,
-            int $requiredPhpMinorVersion = null
+            int $requiredPhpMinorVersion = null            
 
         ) {
 
@@ -215,6 +223,8 @@ final class Package implements PackageInterface {
         
         $this->projectRootFile = realpath($projectRootFile);
         
+        $this->settings = $settings;
+
         if(empty($this->projectRootFile)) {
             
             throw new PackageException("Project root script '{$projectRootFile}' for package '{$vendor}/{$project}' is invalid.");
@@ -396,5 +406,47 @@ final class Package implements PackageInterface {
         
         return $this->projectRootFile;
     }
+
+    /**
+     * 
+     * Get the the package configuration.
+     * 
+     * @return ConfigurationInterface Returns all configuration settings.
+     * 
+     */        
+    
+     public function getConfiguration(): ConfigurationInterface {
+        
+        if($this->settings === null) {
+            
+            $this->settings = $this->loadConfiguration();
+        }
+        
+        return $this->settings;
+    }
+
+    protected function loadConfiguration(): ConfigurationInterface {
+
+        if(defined(self::IGNORE_PACKAGE_CONFIGURATION_DEFINITION) && (constant(self::IGNORE_PACKAGE_CONFIGURATION_DEFINITION) === true)) {
+            
+            return new Configuration([]);
+        }
+        
+        $data = null;        
+        
+        $path = $this->getProjectRootDirectory() . self::CONFIGURATION_FILENAME;
+        
+        if(file_exists($path)) {
+
+            $data = file_get_contents($path);            
+        }        
+        
+        if(empty($data)) {
+            
+            return new Configuration([]);
+        }
+        
+        return Configuration::parseJson($data);
+    }    
           
 }
