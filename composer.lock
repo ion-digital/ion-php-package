@@ -13,12 +13,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ion-digital/ion-php-dev.git",
-                "reference": "b50d59c261f3cb084dc8f0756e745ca5134471d9"
+                "reference": "a6bcf5fa8b14e60b1ce68f74396abf484942cc74"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ion-digital/ion-php-dev/zipball/b50d59c261f3cb084dc8f0756e745ca5134471d9",
-                "reference": "b50d59c261f3cb084dc8f0756e745ca5134471d9",
+                "url": "https://api.github.com/repos/ion-digital/ion-php-dev/zipball/a6bcf5fa8b14e60b1ce68f74396abf484942cc74",
+                "reference": "a6bcf5fa8b14e60b1ce68f74396abf484942cc74",
                 "shasum": ""
             },
             "require": {
@@ -79,7 +79,7 @@
                 "source": "https://github.com/ion-digital/ion-php-dev/tree/main",
                 "issues": "https://github.com/ion-digital/ion-php-dev/issues"
             },
-            "time": "2023-10-30T21:03:08+00:00"
+            "time": "2023-11-01T14:47:53+00:00"
         },
         {
             "name": "ion/packaging-dev",
@@ -2240,12 +2240,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "4cd5311e4ef08baa6d7eeb05c077be3f1b536337"
+                "reference": "0520ef4fbd83458f0c968282f734a3f10c1aa580"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/4cd5311e4ef08baa6d7eeb05c077be3f1b536337",
-                "reference": "4cd5311e4ef08baa6d7eeb05c077be3f1b536337",
+                "url": "https://api.github.com/repos/symfony/console/zipball/0520ef4fbd83458f0c968282f734a3f10c1aa580",
+                "reference": "0520ef4fbd83458f0c968282f734a3f10c1aa580",
                 "shasum": ""
             },
             "require": {
@@ -2326,7 +2326,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-10-31T15:22:49+00:00"
+            "time": "2023-11-01T12:07:38+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",
