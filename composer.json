@@ -37,12 +37,8 @@
     },
     "repositories": [
         {
-            "type": "vcs",
-            "url": "https://github.com/ion-digital/ion-php-dev.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/ion-digital/ion-php-packaging-dev.git"
+            "type": "composer",
+            "url": "https://composer.packages.ion.digital"
         }
     ],    
     "scripts": {
