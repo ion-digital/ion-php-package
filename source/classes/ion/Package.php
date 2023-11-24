@@ -12,6 +12,11 @@ namespace ion;
  * @author Justus
  */
 
+use \ion\Settings\Settings;
+use \ion\Settings\SettingsInterface;
+use \ion\Settings\SettingsProviderInterface;
+use \ion\Settings\Providers\JsonFileSettingsProvider;
+
 final class Package implements PackageInterface {
 
     private const PHP_VERSION_SEPARATOR = '.';
@@ -19,10 +24,9 @@ final class Package implements PackageInterface {
     private const SCRIPT_FILENAME_KEY = 'SCRIPT_FILENAME';
 
     public const COMPOSER_FILENAME = 'composer.json';
-    public const VERSION_FILENAME = 'version.json';    
-    public const CONFIGURATION_FILENAME = "settings.json";
+    public const VERSION_FILENAME = 'version.json';        
 
-    public const IGNORE_PACKAGE_CONFIGURATION_DEFINITION = 'IGNORE_PACKAGE_CONFIGURATION';
+    public const IGNORE_PACKAGE_SETTINGS_DEFINITION = 'IGNORE_PACKAGE_SETTINGS';
 
     private static $instances = [];
 
@@ -38,21 +42,22 @@ final class Package implements PackageInterface {
      * @param SemVerInterface $version The current package version - will be loaded from the file, if __NULL__ and if a version definition file exists, or a Composer version tag is available (in _composer.json_).
      * @param int $requiredPhpMajorVersion The minimum required PHP major version. If __NULL__, it will be disregarded.
      * @param int $requiredPhpMinorVersion The minimum required PHP minor version. If __NULL__, it will be disregarded if __$requiredPhpMajorVersion__ is __NULL__; otherwise it will be set to 0.
+     * @param SettingsProviderInterface ...$settingsProviders Additional settings providers (replaces the default).
      * @return PackageInterface Returns the new package instance.
      */    
     
     public static function create(
-            
-            string $vendor,
+
+            string $vendor, 
             string $project,
-            bool $requireOnly = true,
-            callable $loadingHandler = null,            
-            string $projectRootFile = null,
-            SettingsInterface $settings = null,
+            bool $requireOnly,            
+            callable $loadingHandler, 
+            string $projectRootFile,
             SemVerInterface $version = null,
             int $requiredPhpMajorVersion = null,
-            int $requiredPhpMinorVersion = null
-            
+            int $requiredPhpMinorVersion = null,
+            SettingsProviderInterface ...$settingsProviders
+
         ): PackageInterface {
 
         return new static(
@@ -76,10 +81,10 @@ final class Package implements PackageInterface {
 
             $projectRootFile ?? static::getCallingFile(),
 
-            $settings,
             $version,
             $requiredPhpMajorVersion,
-            $requiredPhpMinorVersion
+            $requiredPhpMinorVersion,
+            ...$settingsProviders
         );
     }
     
@@ -199,7 +204,7 @@ final class Package implements PackageInterface {
     private $projectRootDirectory = null;
     private $requiredPhpMajorVersion = null;
     private $requiredPhpMinorVersion = null;
-    private $settings = null;
+    private $settingsProviders = [];
 
     protected function __construct(
         
@@ -208,10 +213,10 @@ final class Package implements PackageInterface {
             bool $requireOnly,            
             callable $loadingHandler, 
             string $projectRootFile,
-            SettingsInterface $settings = null,
             SemVerInterface $version = null,
             int $requiredPhpMajorVersion = null,
-            int $requiredPhpMinorVersion = null            
+            int $requiredPhpMinorVersion = null,           
+            SettingsProviderInterface ...$settingsProviders
 
         ) {
 
@@ -223,7 +228,10 @@ final class Package implements PackageInterface {
         
         $this->projectRootFile = realpath($projectRootFile);
         
-        $this->settings = $settings;
+        $this->settingsProviders = $settingsProviders;
+
+        if(count($this->settingsProviders) === 0)
+            $this->settingsProviders[] = new JsonFileSettingsProvider();
 
         if(empty($this->projectRootFile)) {
             
@@ -408,45 +416,70 @@ final class Package implements PackageInterface {
     }
 
     /**
+     *
+     * Adds a settings provider.
      * 
-     * Get the the package configuration.
+     * @return PackageInterface Returns the calling instance of the package.
+     *  
+     */
+
+    public function addSettingsProvider(SettingsProviderInterface $provider): PackageInterface {
+
+        $this->settingsProviders[] = $provider;
+        return $this;
+    }
+
+    /**
+     *
+     * Clears the registered settings providers.
      * 
-     * @return ConfigurationInterface Returns all configuration settings.
+     * @return PackageInterface Returns the calling instance of the package.
+     *  
+     */
+
+    public function clearSettingsProviders(): PackageInterface {
+
+        $this->settingsProviders = [];
+        return $this;
+    }    
+
+    /**
+     * 
+     * Returns the registered settings providers.
+     * 
+     * @return array An array of settings providers.
+     * 
+     */
+
+     public function getSettingsProviders(): array {
+
+        return $this->settingsProviders;
+     }
+
+    /**
+     * 
+     * Get the the package settings.
+     * 
+     * @return SettingsInterface Returns all configuration settings.
      * 
      */        
     
-     public function getConfiguration(): ConfigurationInterface {
+    public function getSettings(): SettingsInterface {
+
+        if(defined(self::IGNORE_PACKAGE_SETTINGS_DEFINITION) && (constant(self::IGNORE_PACKAGE_SETTINGS_DEFINITION) === true))            
+            return new Settings([]);
         
-        if($this->settings === null) {
-            
-            $this->settings = $this->loadConfiguration();
+        if(count($this->settingsProviders) === 0)
+            throw new PackageException("No settings providers have been registered.");
+        
+        $settings = new Settings();
+
+        foreach($this->settingsProviders as $provider) {
+
+            $settings = $provider->load($this, $settings->toArray());
         }
-        
-        return $this->settings;
+
+        return $settings;
     }
-
-    protected function loadConfiguration(): ConfigurationInterface {
-
-        if(defined(self::IGNORE_PACKAGE_CONFIGURATION_DEFINITION) && (constant(self::IGNORE_PACKAGE_CONFIGURATION_DEFINITION) === true)) {
-            
-            return new Configuration([]);
-        }
-        
-        $data = null;        
-        
-        $path = $this->getProjectRootDirectory() . self::CONFIGURATION_FILENAME;
-        
-        if(file_exists($path)) {
-
-            $data = file_get_contents($path);            
-        }        
-        
-        if(empty($data)) {
-            
-            return new Configuration([]);
-        }
-        
-        return Configuration::parseJson($data);
-    }    
           
 }

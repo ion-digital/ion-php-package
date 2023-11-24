@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion;
+namespace ion\Settings;
 
 /**
  * Description of PackageException
@@ -14,8 +14,9 @@ namespace ion;
 
 use \Exception;
 use \Throwable;
+use \ion\Settings\SettingsException;
 
-class SettingsException extends PackageException implements SettingsExceptionInterface {
+class SettingsProviderException extends SettingsException implements SettingsProviderExceptionInterface {
     
     public function __construct(string $message = "", int $code = 0, Throwable $previous = null) {
         

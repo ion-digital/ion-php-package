@@ -20,11 +20,16 @@
     
     private const DEFINITIONS = [
 
-        "ion\\Settings" => [ "ion\\SettingsInterface" ],
-        "ion\\SettingsException" => [ "ion\\SettingsExceptionInterface" ],        
         "ion\\Package" => [ "ion\\PackageInterface" ],
         "ion\\PackageException" => [ "ion\\PackageExceptionInterface" ],
-        "ion\\SemVer" => [ "ion\\SemVerInterface" ]
+        "ion\\SemVer" => [ "ion\\SemVerInterface" ],
+
+        "ion\\Settings\\Settings" => [ "ion\\Settings\\SettingsInterface" ],
+        "ion\\Settings\\SettingsException" => [ "ion\\Settings\\SettingsExceptionInterface" ],        
+        "ion\\Settings\\SettingsProvider" => [ "ion\\Settings\\SettingsProviderInterface" ],
+        "ion\\Settings\\SettingsProviderException" => [ "ion\\Settings\\SettingsProviderExceptionInterface" ],              
+        "ion\\Settings\\Providers\\MemorySettingsProvider" => [ "ion\\Settings\\Providers\\MemorySettingsProviderInterface" ],              
+        "ion\\Settings\\Providers\\JsonFileSettingsProvider" => [ "ion\\Settings\\Providers\\JsonFileSettingsProviderInterface" ],
     ];
 
     public static function create(): void {
@@ -85,7 +90,8 @@
             $depCnt += 1 + count(self::DEFINITIONS[$class]);
         }
 
-        $files = [];
+        $interfaces = [];
+        $classes = [];
 
         foreach($dirs as $dir) {
 
@@ -100,7 +106,7 @@
                         continue;
                     }
 
-                    $files[] = $interfaceFile;
+                    $interfaces[] = $interfaceFile;
                 }
 
                 $classFile = realpath( __DIR__ . DIRECTORY_SEPARATOR . $dir . str_replace(self::BACKWARD_SLASH, DIRECTORY_SEPARATOR, $class) . self::PHP_FILE_EXTENSION );
@@ -110,21 +116,27 @@
                     continue;
                 }                            
 
-                $files[] = $classFile;
+                $classes[] = $classFile;
             }
         }
 
-        // Make sure we try to load the interfaces first.
+        // // Make sure we try to load the interfaces first.
 
-        usort($files, function(string $a, string $b) {
+        // usort($files, function(string $a, string $b) {
 
-            if(str_ends_with($a, self::INTERFACE_SUFFIX . self::PHP_FILE_EXTENSION)) {
+        //     if(str_ends_with($a, self::INTERFACE_SUFFIX . self::PHP_FILE_EXTENSION)) {
 
-                return -1;
-            }
+        //         return -1;
+        //     }
 
-            return 1;
-        });
+        //     return 1;
+        // });
+
+        $files = array_merge($interfaces, $classes);
+
+        // var_dump($files);
+        // var_dump($depCnt);
+        // die("X");
 
         // Bail, if we haven't been able to find the exact amount of expected files / dependencies.
 

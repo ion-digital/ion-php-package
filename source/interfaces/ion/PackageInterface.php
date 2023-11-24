@@ -2,16 +2,10 @@
 
 namespace ion;
 
-use \ion\SettingsInterface;
+use \ion\Settings\SettingsInterface;
+use \ion\Settings\SettingsProviderInterface;
 use \ion\SemVerInterface;
-use \ion\ConfigurationInterface;
 
-
-/**
- * A class that describes a package.
- *
- * @author Justus
- */
 interface PackageInterface {
 
     /**
@@ -26,6 +20,7 @@ interface PackageInterface {
      * @param SemVerInterface $version The current package version - will be loaded from the file, if __NULL__ and if a version definition file exists, or a Composer version tag is available (in _composer.json_).
      * @param int $requiredPhpMajorVersion The minimum required PHP major version. If __NULL__, it will be disregarded.
      * @param int $requiredPhpMinorVersion The minimum required PHP minor version. If __NULL__, it will be disregarded if __$requiredPhpMajorVersion__ is __NULL__; otherwise it will be set to 0.
+     * @param SettingsProviderInterface ...$settingsProviders Additional settings providers (replaces the default).
      * @return PackageInterface Returns the new package instance.
      */
 
@@ -33,13 +28,13 @@ interface PackageInterface {
 
         string $vendor,
         string $project,
-        bool $requireOnly = true,
-        callable $loadingHandler = null,
-        string $projectRootFile = null,
-        SettingsInterface $settings = null,
+        bool $requireOnly,
+        callable $loadingHandler,
+        string $projectRootFile,
         SemVerInterface $version = null,
         int $requiredPhpMajorVersion = null,
-        int $requiredPhpMinorVersion = null
+        int $requiredPhpMinorVersion = null,
+        SettingsProviderInterface ...$settingsProviders
 
     ): PackageInterface;
 
@@ -159,12 +154,42 @@ interface PackageInterface {
 
     /**
      *
-     * Get the the package configuration.
+     * Adds a settings provider.
      *
-     * @return ConfigurationInterface Returns all configuration settings.
+     * @return PackageInterface Returns the calling instance of the package.
      *
      */
 
-    function getConfiguration(): ConfigurationInterface;
+    function addSettingsProvider(SettingsProviderInterface $provider): PackageInterface;
+
+    /**
+     *
+     * Clears the registered settings providers.
+     *
+     * @return PackageInterface Returns the calling instance of the package.
+     *
+     */
+
+    function clearSettingsProviders(): PackageInterface;
+
+    /**
+     *
+     * Returns the registered settings providers.
+     *
+     * @return array An array of settings providers.
+     *
+     */
+
+    function getSettingsProviders(): array;
+
+    /**
+     *
+     * Get the the package settings.
+     *
+     * @return SettingsInterface Returns all configuration settings.
+     *
+     */
+
+    function getSettings(): SettingsInterface;
 
 }

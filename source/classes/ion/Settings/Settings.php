@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion;
+namespace ion\Settings;
 
 /**
  * Description of PackageSettings
@@ -13,29 +13,31 @@ namespace ion;
  */
 
 use \ArrayAccess;
+use \ion\Settings\Settings;
+use \ion\Settings\SettingsInterface;
+use \ion\Settings\SettingsExceptionInterface;
+use \ion\Settings\SettingsException;
 
 class Settings implements SettingsInterface, ArrayAccess {
-    
-    public static function parseJson(string $data): SettingsInterface {
-        
-        $json = json_decode($data, true);
-        
-        if(is_array($json)) {
-            
-            return new static($json);
-        }
-        
-        throw new SettingsException("Invalid settings data - could not parse JSON:\n\n{$data}");
-    }
     
     private $settings = [];
     
     final public function __construct(array $settings = []) {
         
-        $this->settings = $settings;        
+        $this->settings = [];
+
+        foreach(array_keys($settings) as $key) {
+
+            if($settings[$key] == null) {
+
+                continue;
+            }
+
+            $this->settings[$key] = $settings[$key];
+        }        
     }
     
-    final public function getSetting(string $name, $default = null) {
+    final protected function get(string $name, $default = null) {
         
         if(!array_key_exists($name, $this->settings)) {
             
@@ -45,35 +47,40 @@ class Settings implements SettingsInterface, ArrayAccess {
         return $this->settings[$name];
     }
     
-    final protected function setSetting(string $name, $value = null): SettingsInterface {
+    final protected function set(string $name, $value = null): SettingsInterface {
 
         $this->settings[$name] = $value;
         return $this;
-    }    
-    
-    final public function getSettingAsBool(string $name, bool $default = false): bool {
-        
-        return boolval($this->getSetting($name, $default));
+    }
+
+    final public function has(string $name): bool {
+
+        return ($this->get($name, null) !== null ? true : false);
     }
     
-    final public function getSettingAsString(string $name, string $default = ''): string {
+    final public function getAsBool(string $name, bool $default = false): bool {
         
-        return (string) ($this->getSetting($name, $default));
+        return boolval($this->get($name, $default));
+    }
+    
+    final public function getAsString(string $name, string $default = ''): string {
+        
+        return (string) ($this->get($name, $default));
     }    
     
-    final public function getSettingAsInt(string $name, int $default = 0): int {
+    final public function getAsInt(string $name, int $default = 0): int {
         
-        return intval($this->getSetting($name, $default));
+        return intval($this->get($name, $default));
     }    
     
-    final public function getSettingAsFloat(string $name, float $default = 0.0): float {
+    final public function getAsFloat(string $name, float $default = 0.0): float {
         
-        return floatval($this->getSetting($name, $default));
+        return floatval($this->get($name, $default));
     }        
     
-    final public function getSettingAsArray(string $name, array $default = []): array {
+    final public function getAsArray(string $name, array $default = []): array {
         
-        $value = $this->getSetting($name, null);
+        $value = $this->get($name, null);
         
         if($value === null) {
             
@@ -86,6 +93,11 @@ class Settings implements SettingsInterface, ArrayAccess {
         }
         
         return [ $value ];
+    }
+
+    final public function getSection(string $name): SettingsInterface {
+
+        return new Settings($this->getAsArray($name, []));
     }
     
     final public function toArray(): array {
@@ -136,18 +148,7 @@ class Settings implements SettingsInterface, ArrayAccess {
     
     public function offsetSet($offset, $value): void {
   
-        // throw new SettingsException("Settings cannot be changed once loaded.");
-
-        $key = static::offsetToKey($offset, $this->settings);
-        
-        if($key === null) {
-                     
-            throw new SettingsException("Could not determine settings key from offset ('{$offset}').");
-        }
-
-        $this->settings[$key] = $value;
-        
-        return;        
+        throw new SettingsException("Settings cannot be changed once loaded (attempted to change '{$offset}').");
     }
     
     public function offsetUnset($offset): void {

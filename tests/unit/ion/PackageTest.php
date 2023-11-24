@@ -91,7 +91,6 @@ class PackageTest extends TestCase {
                 return;
             },             
             static::createRootDirectory($tests, $createFileName), 
-            null,
             $version
         );                     
 

@@ -1,0 +1,22 @@
+{
+    "int": 123,
+    "string": "string",
+    "float": 123.4,
+    "array": [
+        1,
+        2,
+        3
+    ],
+    "bool": true,
+    "section": {
+        "sectionInt": 123,
+        "sectionString": "string",
+        "sectionFloat": 123.4,
+        "sectionArray": [
+            1,
+            2,
+            3
+        ],
+        "sectionBool": true
+    }
+}
