@@ -28,7 +28,7 @@
         "ion\\Settings\\SettingsException" => [ "ion\\Settings\\SettingsExceptionInterface" ],        
         "ion\\Settings\\SettingsProvider" => [ "ion\\Settings\\SettingsProviderInterface" ],
         "ion\\Settings\\SettingsProviderException" => [ "ion\\Settings\\SettingsProviderExceptionInterface" ],              
-        "ion\\Settings\\Providers\\MemorySettingsProvider" => [ "ion\\Settings\\Providers\\MemorySettingsProviderInterface" ],              
+        "ion\\Settings\\Providers\\ArraySettingsProvider" => [ "ion\\Settings\\Providers\\ArraySettingsProviderInterface" ],              
         "ion\\Settings\\Providers\\JsonFileSettingsProvider" => [ "ion\\Settings\\Providers\\JsonFileSettingsProviderInterface" ],
     ];
 

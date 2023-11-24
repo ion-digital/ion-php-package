@@ -17,7 +17,7 @@ use \PHPUnit\Framework\TestCase;
 use \ion\Package;
 use \ion\PackageInterface;
 
-class MemorySettingsProviderTest extends TestCase {
+class ArraySettingsProviderTest extends TestCase {
 
     private const ORIGINAL_KEY = "originalKey";
     private const ORIGINAL_VALUE = "originalValue";    
@@ -41,7 +41,7 @@ class MemorySettingsProviderTest extends TestCase {
             realpath(__DIR__ . "../../../../../data/test-entry.php")
         );
 
-        $provider = new MemorySettingsProvider([ self::ORIGINAL_KEY => self::ORIGINAL_VALUE ]);
+        $provider = new ArraySettingsProvider([ self::ORIGINAL_KEY => self::ORIGINAL_VALUE ]);
         $this->assertNotNull($provider);
 
         $settings = $provider->load($package, [ self::INSERTED_KEY => self::INSERTED_VALUE ]);

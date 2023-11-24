@@ -18,7 +18,7 @@ namespace ion\Settings\Providers;
  use \ion\Settings\SettingsInterface;
  use \ion\Settings\SettingsProviderException;
  
-class MemorySettingsProvider extends SettingsProvider implements MemorySettingsProviderInterface {
+class ArraySettingsProvider extends SettingsProvider implements ArraySettingsProviderInterface {
     
     private $values = [];
 

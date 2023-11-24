@@ -14,6 +14,8 @@ namespace ion;
  */
 
 use PHPUnit\Framework\TestCase;
+use ion\Settings\SettingsProviderInterface;
+use ion\Settings\Providers\ArraySettingsProvider;
 
 class PackageTest extends TestCase {
     
@@ -46,6 +48,12 @@ class PackageTest extends TestCase {
     const MAJOR_VERSION = 1;
     const MINOR_VERSION = 2;
     const PATCH_VERSION = 3;
+
+    const KEY_1 = "key_1";
+    const VALUE_1 = "value_1";
+
+    const KEY_2 = "key_2";
+    const VALUE_2 = "value_2";        
     
     private static function createRootDirectory(PackageTest $tests, bool $createFileName = true) {
         
@@ -71,7 +79,10 @@ class PackageTest extends TestCase {
             bool $cache = null, 
             array $loaders = null, 
             bool $createVersion = true, 
-            bool $createFileName = true
+            bool $createFileName = true,
+            int $phpMajorVersion = null,
+            int $phpMinorVersion = null,
+            SettingsProviderInterface ...$settingsProviders
         ) {
         
         $version = null;
@@ -91,7 +102,10 @@ class PackageTest extends TestCase {
                 return;
             },             
             static::createRootDirectory($tests, $createFileName), 
-            $version
+            $version,
+            $phpMajorVersion,
+            $phpMinorVersion,
+            ...$settingsProviders
         );                     
 
     }
@@ -195,4 +209,35 @@ class PackageTest extends TestCase {
         $package->destroy();
     }
    
+    public function testSettingsProviders() {
+  
+        $package = self::createPackage(
+            $this, 
+            self::TEST_PACKAGE_PROJECT, 
+            true, 
+            false, 
+            [], 
+            true, 
+            true, 
+            null, 
+            null,
+            new ArraySettingsProvider([ self::KEY_1 => self::VALUE_1 ]),
+            new ArraySettingsProvider([ self::KEY_2 => self::VALUE_2 ])                
+        );
+
+        $this->assertEquals(self::VALUE_1, $package->getSettings()->getAsString(self::KEY_1));
+        $this->assertEquals(self::VALUE_2, $package->getSettings()->getAsString(self::KEY_2));
+          
+        $this->assertTrue($package->getSettings()->has(self::KEY_1));
+        $this->assertTrue($package->getSettings()->has(self::KEY_2));
+
+        $this->assertEquals(2, count($package->getSettingsProviders()));
+
+        $package->clearSettingsProviders();
+
+        $this->assertEquals(0, count($package->getSettingsProviders()));
+
+        $this->expectException(PackageException::class);
+        $package->getSettings();
+    }
 }
