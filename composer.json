@@ -23,7 +23,7 @@
     
     "prefer-stable": true,
     "minimum-stability": "dev", 
-    
+
     "autoload": {
         "files": [
             "index.php"
@@ -31,9 +31,9 @@
     },    
     "autoload-dev": {
         "psr-4": {
-            "ion\\": [ 
+            "Ion\\": [ 
          
-                "tests/unit/ion/"
+                "tests/unit/Ion/"
             ]
         }
     },
