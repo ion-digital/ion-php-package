@@ -95,13 +95,13 @@ class PackageTest extends TestCase {
         return Package::create(
             
             self::TEST_PACKAGE_VENDOR, 
-            $project, 
-            true, 
+            $project,             
             function(PackageInterface $package): void {
 
                 return;
-            },             
-            static::createRootDirectory($tests, $createFileName), 
+            },        
+            static::createRootDirectory($tests, $createFileName),
+            true,
             $version,
             $phpMajorVersion,
             $phpMinorVersion,

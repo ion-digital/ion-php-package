@@ -14,9 +14,9 @@ interface PackageInterface {
      *
      * @param string $vendor The vendor name (__vendor__/project).
      * @param string $project The project name (vendor/__project__).
-     * @param bool $requireOnly If __true__, throw an exception if the calling script is accessed directly - of __false__, allow direct calls.
-     * @param callable $loadingHandler The callback that will handle the loading of class files - defaults to requiring Composer's 'vendor/autoload.php' script.
+     * @param callable $handler The callback that will handle the loading of class files - defaults to requiring Composer's 'vendor/autoload.php' script.
      * @param string $projectRootFile An optional parameter to override the project root script - defaults to the calling script.
+     * @param bool $requireOnly If __true__, throw an exception if the calling script is accessed directly - of __false__, allow direct calls.
      * @param SemVerInterface $version The current package version - will be loaded from the file, if __NULL__ and if a version definition file exists, or a Composer version tag is available (in _composer.json_).
      * @param int $requiredPhpMajorVersion The minimum required PHP major version. If __NULL__, it will be disregarded.
      * @param int $requiredPhpMinorVersion The minimum required PHP minor version. If __NULL__, it will be disregarded if __$requiredPhpMajorVersion__ is __NULL__; otherwise it will be set to 0.
@@ -28,9 +28,9 @@ interface PackageInterface {
 
         string $vendor,
         string $project,
-        bool $requireOnly,
-        callable $loadingHandler,
-        string $projectRootFile,
+        callable $handler = null,
+        string $projectRootFile = null,
+        bool $requireOnly = true,
         SemVerInterface $version = null,
         int $requiredPhpMajorVersion = null,
         int $requiredPhpMinorVersion = null,

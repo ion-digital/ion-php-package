@@ -32,13 +32,13 @@ class ArraySettingsProviderTest extends TestCase {
         $package = Package::create(
             
             self::TEST_PACKAGE_VENDOR, 
-            self::TEST_PACKAGE_PROJECT, 
-            true, 
+            self::TEST_PACKAGE_PROJECT,             
             function(PackageInterface $package): void {
 
                 return;
             },
-            realpath(__DIR__ . "../../../../../data/test-entry.php")
+            realpath(__DIR__ . "../../../../../data/test-entry.php"),
+            true
         );
 
         $provider = new ArraySettingsProvider([ self::ORIGINAL_KEY => self::ORIGINAL_VALUE ]);

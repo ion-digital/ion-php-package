@@ -42,8 +42,7 @@
         (self::CLASS_NAME)::create(
             
             self::VENDOR, 
-            self::PROJECT, 
-            true, 
+            self::PROJECT,             
         
             function() {
         
@@ -55,7 +54,8 @@
                 return;
             }, 
 
-            __FILE__
+            __FILE__,
+            true
         );
 
         
@@ -120,23 +120,7 @@
             }
         }
 
-        // // Make sure we try to load the interfaces first.
-
-        // usort($files, function(string $a, string $b) {
-
-        //     if(str_ends_with($a, self::INTERFACE_SUFFIX . self::PHP_FILE_EXTENSION)) {
-
-        //         return -1;
-        //     }
-
-        //     return 1;
-        // });
-
         $files = array_merge($interfaces, $classes);
-
-        // var_dump($files);
-        // var_dump($depCnt);
-        // die("X");
 
         // Bail, if we haven't been able to find the exact amount of expected files / dependencies.
 

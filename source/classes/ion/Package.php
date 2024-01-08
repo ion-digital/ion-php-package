@@ -35,10 +35,10 @@ final class Package implements PackageInterface {
      * Create a package instance.
      * 
      * @param string $vendor The vendor name (__vendor__/project).
-     * @param string $project The project name (vendor/__project__).
-     * @param bool $requireOnly If __true__, throw an exception if the calling script is accessed directly - of __false__, allow direct calls.  
-     * @param callable $loadingHandler The callback that will handle the loading of class files - defaults to requiring Composer's 'vendor/autoload.php' script.
+     * @param string $project The project name (vendor/__project__).     
+     * @param callable $handler The callback that will handle the loading of class files - defaults to requiring Composer's 'vendor/autoload.php' script.      
      * @param string $projectRootFile An optional parameter to override the project root script - defaults to the calling script.
+     * @param bool $requireOnly If __true__, throw an exception if the calling script is accessed directly - of __false__, allow direct calls.  
      * @param SemVerInterface $version The current package version - will be loaded from the file, if __NULL__ and if a version definition file exists, or a Composer version tag is available (in _composer.json_).
      * @param int $requiredPhpMajorVersion The minimum required PHP major version. If __NULL__, it will be disregarded.
      * @param int $requiredPhpMinorVersion The minimum required PHP minor version. If __NULL__, it will be disregarded if __$requiredPhpMajorVersion__ is __NULL__; otherwise it will be set to 0.
@@ -48,11 +48,11 @@ final class Package implements PackageInterface {
     
     public static function create(
 
-            string $vendor, 
+            string $vendor,
             string $project,
-            bool $requireOnly,            
-            callable $loadingHandler, 
-            string $projectRootFile,
+            callable $handler = null,
+            string $projectRootFile = null,
+            bool $requireOnly = true,
             SemVerInterface $version = null,
             int $requiredPhpMajorVersion = null,
             int $requiredPhpMinorVersion = null,
@@ -63,10 +63,9 @@ final class Package implements PackageInterface {
         return new static(
                 
             $vendor, 
-            $project, 
-            $requireOnly,
+            $project,            
 
-            $loadingHandler ?? function(PackageInterface $package) use ($vendor, $project): void {
+            $handler ?? function(PackageInterface $package) use ($vendor, $project): void {
 
                 $f = $package->getProjectRootDirectory() . self::COMPOSER_AUTOLOAD_PATH;
                 $rf = realpath($f);
@@ -80,7 +79,7 @@ final class Package implements PackageInterface {
             },            
 
             $projectRootFile ?? static::getCallingFile(),
-
+            $requireOnly,
             $version,
             $requiredPhpMajorVersion,
             $requiredPhpMinorVersion,
@@ -209,10 +208,10 @@ final class Package implements PackageInterface {
     protected function __construct(
         
             string $vendor, 
-            string $project,
-            bool $requireOnly,            
-            callable $loadingHandler, 
+            string $project,            
+            callable $handler, 
             string $projectRootFile,
+            bool $requireOnly,
             SemVerInterface $version = null,
             int $requiredPhpMajorVersion = null,
             int $requiredPhpMinorVersion = null,           
@@ -277,7 +276,7 @@ final class Package implements PackageInterface {
         
         static::registerInstance($this);
 
-        $loadingHandler($this);
+        $handler($this);
     }
 
     /**

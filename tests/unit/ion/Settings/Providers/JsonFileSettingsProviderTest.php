@@ -31,12 +31,12 @@ class JsonFileSettingsProviderTest extends TestCase {
             
             self::TEST_PACKAGE_VENDOR, 
             self::TEST_PACKAGE_PROJECT, 
-            true, 
             function(PackageInterface $package): void {
 
                 return;
             },
-            realpath(__DIR__ . "../../../../../data/test-entry.php")
+            realpath(__DIR__ . "../../../../../data/test-entry.php"),
+            true
         );
 
         $provider = new JsonFileSettingsProvider("tests/data/settings.json");
