@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion;
+namespace Ion;
 
 /**
  * A class that describes a package.
@@ -12,12 +12,12 @@ namespace ion;
  * @author Justus
  */
 
-use \ion\Settings\Settings;
-use \ion\Settings\SettingsInterface;
-use \ion\Settings\SettingsProviderInterface;
-use \ion\Settings\Providers\JsonFileSettingsProvider;
+use \Ion\Settings\Settings;
+use \Ion\Settings\SettingsInterface;
+use \Ion\Settings\SettingsProviderInterface;
+use \Ion\Settings\Providers\JsonFileSettingsProvider;
 
-final class Package implements PackageInterface {
+final class Package extends Disposable implements PackageInterface {
 
     private const PHP_VERSION_SEPARATOR = '.';
     private const COMPOSER_AUTOLOAD_PATH = 'vendor/autoload.php';
@@ -287,9 +287,9 @@ final class Package implements PackageInterface {
      * 
      */    
 
-    public function destroy(): void {
+    protected function dispose(bool $disposing): void {
         
-        static::destroyInstance($this);        
+        static::destroyInstance($this);
         return;
     }
         

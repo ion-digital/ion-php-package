@@ -1,10 +1,8 @@
 <?php
 
-namespace ion\Settings;
+namespace Ion\Settings;
 
-use \ion\PackageExceptionInterface;
-
-interface SettingsExceptionInterface extends PackageExceptionInterface {
+interface SettingsExceptionInterface {
 
     // No public methods!
 

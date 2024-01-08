@@ -4,11 +4,11 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion\Settings;
+namespace Ion\Settings;
 
-use \ion\PackageInterface;
-use \ion\Settings\SettingsInterface;
-use \ion\Settings\SettingsProviderInterface;
+use \Ion\PackageInterface;
+use \Ion\Settings\SettingsInterface;
+use \Ion\Settings\SettingsProviderInterface;
 
 /**
  * Description of PackageSettings

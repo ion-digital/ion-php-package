@@ -5,7 +5,7 @@
  */
 
 
-namespace ion\Settings\Providers;
+namespace Ion\Settings\Providers;
 
 /**
  * Description of PackageTest
@@ -14,8 +14,8 @@ namespace ion\Settings\Providers;
  */
 
 use \PHPUnit\Framework\TestCase;
-use \ion\Package;
-use \ion\PackageInterface;
+use \Ion\Package;
+use \Ion\PackageInterface;
 
 class ArraySettingsProviderTest extends TestCase {
 

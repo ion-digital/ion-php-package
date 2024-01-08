@@ -5,7 +5,7 @@
  */
 
 
-namespace ion;
+namespace Ion;
 
 /**
  * Description of PackageTest
@@ -14,8 +14,8 @@ namespace ion;
  */
 
 use PHPUnit\Framework\TestCase;
-use ion\Settings\SettingsProviderInterface;
-use ion\Settings\Providers\ArraySettingsProvider;
+use Ion\Settings\SettingsProviderInterface;
+use Ion\Settings\Providers\ArraySettingsProvider;
 
 class PackageTest extends TestCase {
     

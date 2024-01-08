@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion\Settings;
+namespace Ion\Settings;
 
 /**
  * Description of PackageSettings
@@ -13,10 +13,10 @@ namespace ion\Settings;
  */
 
 use \ArrayAccess;
-use \ion\Settings\Settings;
-use \ion\Settings\SettingsInterface;
-use \ion\Settings\SettingsExceptionInterface;
-use \ion\Settings\SettingsException;
+use \Ion\Settings\Settings;
+use \Ion\Settings\SettingsInterface;
+use \Ion\Settings\SettingsExceptionInterface;
+use \Ion\Settings\SettingsException;
 
 class Settings implements SettingsInterface, ArrayAccess {
     

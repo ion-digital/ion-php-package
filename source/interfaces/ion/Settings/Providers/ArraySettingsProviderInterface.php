@@ -1,12 +1,11 @@
 <?php
 
-namespace ion\Settings\Providers;
+namespace Ion\Settings\Providers;
 
-use \ion\PackageInterface;
-use \ion\Settings\SettingsInterface;
-use \ion\Settings\SettingsProviderInterface;
+use \Ion\PackageInterface;
+use \Ion\Settings\SettingsInterface;
 
-interface ArraySettingsProviderInterface extends SettingsProviderInterface {
+interface ArraySettingsProviderInterface {
 
     function load(PackageInterface $package, array $values = []): SettingsInterface;
 

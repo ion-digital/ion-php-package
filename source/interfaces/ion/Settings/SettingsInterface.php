@@ -1,6 +1,6 @@
 <?php
 
-namespace ion\Settings;
+namespace Ion\Settings;
 
 interface SettingsInterface {
 

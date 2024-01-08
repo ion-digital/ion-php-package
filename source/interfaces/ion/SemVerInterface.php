@@ -1,6 +1,6 @@
 <?php
 
-namespace ion;
+namespace Ion;
 
 
 /**

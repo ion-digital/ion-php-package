@@ -8,7 +8,7 @@
 
     private const VENDOR = "ion";
     private const PROJECT = "packaging";
-    private const CLASS_NAME = "\\ion\\Package";
+    private const CLASS_NAME = "\\Ion\\Package";
     private const INTERFACE_SUFFIX = "Interface";
     private const BUILDS_DIR = "builds";
     private const SOURCE_DIR = "source";
@@ -20,16 +20,17 @@
     
     private const DEFINITIONS = [
 
-        "ion\\Package" => [ "ion\\PackageInterface" ],
-        "ion\\PackageException" => [ "ion\\PackageExceptionInterface" ],
-        "ion\\SemVer" => [ "ion\\SemVerInterface" ],
+        "Ion\\Disposable" => [ "Ion\\DisposableInterface" ],
+        "Ion\\Package" => [ "Ion\\PackageInterface" ],
+        "Ion\\PackageException" => [ "Ion\\PackageExceptionInterface" ],
+        "Ion\\SemVer" => [ "Ion\\SemVerInterface" ],
 
-        "ion\\Settings\\Settings" => [ "ion\\Settings\\SettingsInterface" ],
-        "ion\\Settings\\SettingsException" => [ "ion\\Settings\\SettingsExceptionInterface" ],        
-        "ion\\Settings\\SettingsProvider" => [ "ion\\Settings\\SettingsProviderInterface" ],
-        "ion\\Settings\\SettingsProviderException" => [ "ion\\Settings\\SettingsProviderExceptionInterface" ],              
-        "ion\\Settings\\Providers\\ArraySettingsProvider" => [ "ion\\Settings\\Providers\\ArraySettingsProviderInterface" ],              
-        "ion\\Settings\\Providers\\JsonFileSettingsProvider" => [ "ion\\Settings\\Providers\\JsonFileSettingsProviderInterface" ],
+        "Ion\\Settings\\Settings" => [ "Ion\\Settings\\SettingsInterface" ],
+        "Ion\\Settings\\SettingsException" => [ "Ion\\Settings\\SettingsExceptionInterface" ],        
+        "Ion\\Settings\\SettingsProvider" => [ "Ion\\Settings\\SettingsProviderInterface" ],
+        "Ion\\Settings\\SettingsProviderException" => [ "Ion\\Settings\\SettingsProviderExceptionInterface" ],              
+        "Ion\\Settings\\Providers\\ArraySettingsProvider" => [ "Ion\\Settings\\Providers\\ArraySettingsProviderInterface" ],              
+        "Ion\\Settings\\Providers\\JsonFileSettingsProvider" => [ "Ion\\Settings\\Providers\\JsonFileSettingsProviderInterface" ],
     ];
 
     public static function create(): void {

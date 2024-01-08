@@ -1,9 +1,9 @@
 <?php
 
-namespace ion\Settings;
+namespace Ion\Settings;
 
-use \ion\PackageInterface;
-use \ion\Settings\SettingsInterface;
+use \Ion\PackageInterface;
+use \Ion\Settings\SettingsInterface;
 
 
 /**

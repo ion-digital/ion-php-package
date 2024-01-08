@@ -1,10 +1,10 @@
 <?php
 
-namespace ion;
+namespace Ion;
 
-use \ion\Settings\SettingsInterface;
-use \ion\Settings\SettingsProviderInterface;
-use \ion\SemVerInterface;
+use \Ion\Settings\SettingsInterface;
+use \Ion\Settings\SettingsProviderInterface;
+use \Ion\SemVerInterface;
 
 interface PackageInterface {
 
@@ -85,16 +85,6 @@ interface PackageInterface {
      */
 
     static function getCallingFile(int $back = 1): string;
-
-    /**
-     *
-     * Destroy an instance.
-     *
-     * @return void
-     *
-     */
-
-    function destroy(): void;
 
     /**
      *

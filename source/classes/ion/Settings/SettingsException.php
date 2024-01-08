@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion\Settings;
+namespace Ion\Settings;
 
 /**
  * Description of PackageException
@@ -14,7 +14,7 @@ namespace ion\Settings;
 
 use \Exception;
 use \Throwable;
-use \ion\PackageException;
+use \Ion\PackageException;
 
 class SettingsException extends PackageException implements SettingsExceptionInterface {
     

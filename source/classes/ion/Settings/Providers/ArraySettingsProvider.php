@@ -4,7 +4,7 @@
  * See license information at the package root in LICENSE.md
  */
 
-namespace ion\Settings\Providers;
+namespace Ion\Settings\Providers;
 
 /**
  * Description of PackageSettings
@@ -12,11 +12,11 @@ namespace ion\Settings\Providers;
  * @author Justus
  */
  
- use \ion\PackageInterface;
- use \ion\Settings\Settings;
- use \ion\Settings\SettingsProvider;
- use \ion\Settings\SettingsInterface;
- use \ion\Settings\SettingsProviderException;
+ use \Ion\PackageInterface;
+ use \Ion\Settings\Settings;
+ use \Ion\Settings\SettingsProvider;
+ use \Ion\Settings\SettingsInterface;
+ use \Ion\Settings\SettingsProviderException;
  
 class ArraySettingsProvider extends SettingsProvider implements ArraySettingsProviderInterface {
     

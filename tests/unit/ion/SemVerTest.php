@@ -5,7 +5,7 @@
  */
 
 
-namespace ion;
+namespace Ion;
 
 /**
  * Description of SemVerTest
