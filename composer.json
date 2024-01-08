@@ -21,7 +21,9 @@
         "ion/packaging-dev": "dev-main"
     },
     
+    "prefer-stable": true,
     "minimum-stability": "dev", 
+    
     "autoload": {
         "files": [
             "index.php"
