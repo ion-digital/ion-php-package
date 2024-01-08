@@ -12,4 +12,8 @@ interface DisposableInterface {
 
     function destroy(): void;
 
+    function isDisposed(): bool;
+
+    function __destruct();
+
 }

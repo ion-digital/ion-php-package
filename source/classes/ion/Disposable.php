@@ -18,17 +18,25 @@ abstract class Disposable implements DisposableInterface {
 
     public final function destroy(): void {
 
-        if($this->disposed === true)
+        if($this->isDisposed() === true)
             return;
 
         $this->dispose(true);
         $this->disposed = true;
     }
 
+    public final function isDisposed(): bool {
+
+        return $this->disposed;
+    }
+
     protected abstract function dispose(bool $disposing);
 
     public final function __destruct() {
 
-        $this->destroy(false);        
+        if($this->isDisposed() === true)
+            return;
+
+        $this->dispose(false);        
     }
 }
