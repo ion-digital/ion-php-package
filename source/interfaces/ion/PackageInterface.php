@@ -4,6 +4,7 @@ namespace Ion;
 
 use \Ion\Settings\SettingsInterface;
 use \Ion\Settings\SettingsProviderInterface;
+use \Ion\DisposableInterface;
 use \Ion\SemVerInterface;
 
 interface PackageInterface {
@@ -85,6 +86,18 @@ interface PackageInterface {
      */
 
     static function getCallingFile(int $back = 1): string;
+
+    /**
+     *
+     * Attaches a object to be disposed along with the package.
+     *
+     * @param DisposableInterface $disposable The DisposableInterface instance to attach.
+     *
+     * @return PackageInterface Returns the package.
+     *
+     */
+
+    function attachDisposable(DisposableInterface $disposable): PackageInterface;
 
     /**
      *

@@ -28,7 +28,7 @@ final class Package extends Disposable implements PackageInterface {
 
     public const IGNORE_PACKAGE_SETTINGS_DEFINITION = 'IGNORE_PACKAGE_SETTINGS';
 
-    private static $instances = [];
+    private static $instances = [];    
 
     /**
      * 
@@ -204,6 +204,7 @@ final class Package extends Disposable implements PackageInterface {
     private $requiredPhpMajorVersion = null;
     private $requiredPhpMinorVersion = null;
     private $settingsProviders = [];
+    private $disposables = [];
 
     protected function __construct(
         
@@ -289,6 +290,14 @@ final class Package extends Disposable implements PackageInterface {
 
     protected function dispose(bool $disposing): void {
         
+        foreach($this->disposables as $disposable) {
+
+            if($disposable->isDisposed())
+                continue;
+
+            $disposable->destroy();
+        }
+
         static::destroyInstance($this);
         return;
     }
@@ -342,8 +351,24 @@ final class Package extends Disposable implements PackageInterface {
 
     /**
      * 
-     * Get the package version.
+     * Attaches a object to be disposed along with the package.
      * 
+     * @param DisposableInterface $disposable The DisposableInterface instance to attach.
+     *      
+     * @return PackageInterface Returns the package.
+     * 
+     */    
+
+    public function attachDisposable(DisposableInterface $disposable): PackageInterface {
+
+        $this->disposables[] = $disposable;
+        return $this;
+    }
+
+    /**
+     * 
+     * Get the package version.
+     *
      * @return ?SemVerInterface Returns the specified version of the package, or null if not specified.
      * 
      */    
