@@ -282,7 +282,7 @@ final class Package extends Disposable implements PackageInterface {
         if($disposable == null)
             return;
 
-        $this->addDisposable($disposable);
+        $this->attachDisposable($disposable);
     }
 
     /**
