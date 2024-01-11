@@ -277,7 +277,12 @@ final class Package extends Disposable implements PackageInterface {
         
         static::registerInstance($this);
 
-        $handler($this);
+        $disposable = $handler($this);
+
+        if($disposable == null)
+            return;
+
+        $this->addDisposable($disposable);
     }
 
     /**
