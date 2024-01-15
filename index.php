@@ -70,7 +70,7 @@
 
         $dirs = [];
 
-        if(is_dir(self::SOURCE_DIR)) {
+        if(is_dir($baseDir . DIRECTORY_SEPARATOR . self::SOURCE_DIR)) {
 
             $dirs[] = self::SOURCE_DIR . DIRECTORY_SEPARATOR . self::SOURCE_CLASSES_DIR . DIRECTORY_SEPARATOR;
             $dirs[] = self::SOURCE_DIR . DIRECTORY_SEPARATOR . self::SOURCE_INTERFACES_DIR . DIRECTORY_SEPARATOR;

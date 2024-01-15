@@ -6,6 +6,7 @@
 
  (new class {
 
+    private const PACKAGING_INCLUDE_FILENAME = "index.php";
     private const COMPOSER_AUTOLOAD_FILENAME = "autoload.php";
 	
 	private const COMPOSER_AUTOLOAD_PATHS = [
@@ -22,6 +23,8 @@
             return;
 
         $baseDir = dirname($entryFile);
+
+        require_once(realpath( $baseDir . DIRECTORY_SEPARATOR . self::PACKAGING_INCLUDE_FILENAME ));
 
         define(self::LOAD_DEFINITION, $entryFile);
 
