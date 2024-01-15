@@ -6,13 +6,19 @@
 
 (new class {
 
-    private const CLASS_FILENAME = "PackagingBootStrap.php";
+    private const CLASS_NAME = "PackagingBootstrap";
+    private const CLASS_FILENAME = self::CLASS_NAME . ".php";
     private const CLASS_PATHS = [
 
         "source" . DIRECTORY_SEPARATOR . "classes" . DIRECTORY_SEPARATOR . "Ion" . DIRECTORY_SEPARATOR
     ];
 
-    public static function create() {
+    public static function create(): void {
+
+        if(defined(self::CLASS_NAME))
+            return;
+
+        define(self::CLASS_NAME, true);
 
         foreach(self::CLASS_PATHS as $classPath) {
 
@@ -24,7 +30,7 @@
             require_once($path);
         }
 
-        \Ion\PackageLoader::create(__DIR__);
+        \Ion\PackagingBootstrap::create(__DIR__);
     }
 
 })::create();

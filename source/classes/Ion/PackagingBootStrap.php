@@ -6,7 +6,7 @@
 
 namespace Ion;
 
-final class PackageLoader {
+final class PackagingBootstrap {
 
     private const VENDOR = "ion";
     private const PROJECT = "packaging";
@@ -46,14 +46,10 @@ final class PackageLoader {
 
     public static function create(string $baseDir): void {        
 
-        $loaded = self::load($baseDir);
-
-        if(self::isLoaded()) {
-
+        if(self::isLoaded())
             return;
-        }
 
-        self::$loaded = $loaded;
+        self::$loaded = (self::load($baseDir) ? true : self::$loaded);
 
         if(\Ion\Package::hasInstance(self::VENDOR, self::PROJECT))
             return;
@@ -88,7 +84,7 @@ final class PackageLoader {
     private static function load(string $baseDir): bool {
 
         if(self::isLoaded())
-            return false;
+            return false;  
 
 		$composerPath = null;
 		
@@ -97,7 +93,7 @@ final class PackageLoader {
             $composerPath = realpath( $baseDir . DIRECTORY_SEPARATOR . $autoloaderPath . DIRECTORY_SEPARATOR . self::COMPOSER_AUTOLOAD_FILENAME );
 
 			if(!empty($composerPath))
-                break;
+                break;            
 		}
 
         if(!empty($composerPath))
