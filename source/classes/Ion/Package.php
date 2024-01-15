@@ -60,6 +60,9 @@ final class Package extends Disposable implements PackageInterface {
 
         ): PackageInterface {
 
+        if(static::hasInstance($vendor, $project))
+            return static::getInstance($vendor, $project);
+            
         return (new static(
                 
             $vendor, 
