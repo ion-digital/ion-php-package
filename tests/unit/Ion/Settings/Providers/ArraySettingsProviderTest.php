@@ -25,7 +25,7 @@ class ArraySettingsProviderTest extends TestCase {
     private const INSERTED_VALUE = "insertedValue";
     
     const TEST_PACKAGE_VENDOR = "xyz";
-    const TEST_PACKAGE_PROJECT = "project";
+    const TEST_PACKAGE_PROJECT = "array-project";
 
     function testLoad() {      
 

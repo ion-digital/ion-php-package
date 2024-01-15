@@ -60,7 +60,7 @@ final class Package extends Disposable implements PackageInterface {
 
         ): PackageInterface {
 
-        return new static(
+        return (new static(
                 
             $vendor, 
             $project,            
@@ -84,7 +84,17 @@ final class Package extends Disposable implements PackageInterface {
             $requiredPhpMajorVersion,
             $requiredPhpMinorVersion,
             ...$settingsProviders
-        );
+        ));
+        // $tmp = static::getInstance($vendor, $project);
+
+        // if($tmp === null) {
+        //     var_dump($project);
+        //     var_dump(static::$instances);
+        //     debug_print_backtrace();
+        //     exit;
+        // }
+
+        // return static::getInstance($vendor, $project);
     }
     
     /**
@@ -129,36 +139,38 @@ final class Package extends Disposable implements PackageInterface {
     
     public static function getInstance(string $vendorName, string $projectName): ?PackageInterface {
         
-        if(!static::hasInstance($vendorName, $projectName)) {
-
+        if(!static::hasInstance($vendorName, $projectName))
             return null;
-        }
     
         return static::$instances[$vendorName . '/' . $projectName];
     }
 
     protected static function destroyInstance(self $instance): void {
         
+        if(!static::hasInstance($instance->getVendor(), $instance->getProject()))
+            return;     
+
         unset(static::$instances[$instance->getName()]);
     }
     
     protected static function registerInstance(self $instance): void {
 
-        if ($instance->getVersion() !== null) {
-            
-            if (array_key_exists($instance->getName(), static::$instances) === true) {
+        if (static::hasInstance($instance->getVendor(), $instance->getProject())) {
 
+            if ($instance->getVersion() !== null) {
+            
                 $tmp = static::$instances[$instance->getName()];
                 
                 if ($tmp->getVersion() !== null) {
                     
-                    if ($instance->getVersion()->isLowerThan($tmp->getVersion())) {
-                        
+                    if ($instance->getVersion()->isLowerThan($tmp->getVersion()))
                         static::$instances[$instance->getName()]->destroy();
-                    }
                 }
             }
         }
+
+        if (static::hasInstance($instance->getVendor(), $instance->getProject()))
+            return;
 
         static::$instances[$instance->getName()] = $instance;
         
