@@ -10,22 +10,6 @@ namespace Ion;
  */
 interface SemVerInterface {
 
-    static function create(
-
-        int $major = 0,
-        int $minor = 0,
-        int $patch = 0,
-        string $release = null,
-        array $buildData = null
-
-    ): SemVerInterface;
-
-    static function parse(string $string): ?SemVerInterface;
-
-    static function parsePackageJson(string $data): ?SemVerInterface;
-
-    static function parseComposerJson(string $data): ?SemVerInterface;
-
     /**
      *
      * Get the major version component.
