@@ -87,12 +87,12 @@
             "source": {
                 "type": "git",
                 "url": "git@github.com:ion-digital/ion-php-packaging-dev.git",
-                "reference": "4c0ee38bd9b3c16bea0a29a0a00a7c5c09152c4a"
+                "reference": "e8f1070cbb77f6a4a762efea93abd30ade55dbea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ion-digital/ion-php-packaging-dev/zipball/4c0ee38bd9b3c16bea0a29a0a00a7c5c09152c4a",
-                "reference": "4c0ee38bd9b3c16bea0a29a0a00a7c5c09152c4a",
+                "url": "https://api.github.com/repos/ion-digital/ion-php-packaging-dev/zipball/e8f1070cbb77f6a4a762efea93abd30ade55dbea",
+                "reference": "e8f1070cbb77f6a4a762efea93abd30ade55dbea",
                 "shasum": ""
             },
             "require": {
@@ -161,7 +161,7 @@
                 "source": "https://github.com/ion-digital/ion-php-packaging-dev/tree/main",
                 "issues": "https://github.com/ion-digital/ion-php-packaging-dev/issues"
             },
-            "time": "2024-01-17T06:19:45+00:00"
+            "time": "2024-01-17T06:56:04+00:00"
         },
         {
             "name": "ion/php-trans-porter",
