@@ -15,20 +15,22 @@
         "vendor" . DIRECTORY_SEPARATOR
 	];    
 
-    private const LOAD_DEFINITION = "ION_PACKAGING_BOOTSTRAP";
+    private const LOAD_DEFINITION_PREFIX = "ION_PACKAGING_BOOTSTRAP_";
 
     public static function create(string $entryFile): void {
 
         try {
 
-            if(defined(self::LOAD_DEFINITION))
+            $loadDefinition = self::LOAD_DEFINITION_PREFIX . md5($entryFile);
+
+            if(defined($loadDefinition))
                 return;
+
+            define($loadDefinition, __FILE__);
 
             $baseDir = dirname($entryFile);
 
             require_once(realpath( $baseDir . DIRECTORY_SEPARATOR . self::PACKAGING_INCLUDE_FILENAME ));
-
-            define(self::LOAD_DEFINITION, $entryFile);
 
             $composerPath = null;
             
